@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UI Translator</title>
+    <link rel="stylesheet" href="/css/all.css" />
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#">UI Translator</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="/">Home</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header">NLS Packages</li>
+              <% for(var i=0; i<nlsObjs.length; i++) {%>
+                <% if (selectedNls && selectedNls.idx == i) { %>
+                <li class="active">
+                <% } else { %>
+                <li>
+                <% } %>
+                <a href="/<%- i %>"><%- nlsObjs[i].groupName %>.<%- nlsObjs[i].type %> (<%- nlsObjs[i].rootPath %>)</a>
+              </li>
+              <% } %>
+              <% if (selectedNls) { %>
+              <li class="nav-header">Languages</li>
+              <% for(var i=0; i<selectedNls.langs.length; i++) {%>
+              <% if (selectedLang && selectedLang.name == selectedNls.langs[i]) { %>
+              <li class="active">
+              <% } else { %>
+              <li>
+              <% } %>
+                <a href="/<%- selectedNls.idx %>/<%- selectedNls.langs[i] %>"><%- selectedNls.langs[i] %></a>
+              </li>
+              <% } %>
+              <% } %>
+            </ul>
+          </div>
+        </div>
+        <div class="span9">
+          <% if (selectedNls) { %>
+            <div class="hero-unit">              
+              <% if (!selectedLang) { %>
+              <h1>Select language to start translating.</h1>
+              <% } %>
+              <div class="new-language">
+                <p>Add new language:</p>
+                <form class="navbar-form pull-left" method="post" action="/<%- selectedNls.idx %>/new">
+                  <input type="text" name="lang" class="input-small" />
+                  <input type="submit" name="addLang" value="Add" class="btn btn-primary" />
+                </form>
+              </div>
+            </div>
+          <% } else { %>
+            <div class="hero-unit">
+              <h1>Welcome to UI translator</h1>
+              <p>Select package and language to start translating.</p>
+            </div>
+          <% } %>
+          <% if (selectedLang) { %>
+          <div class="row-fluid lang-editor">
+            <% if (message) { %>
+            <div class="message">
+              <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <%= message %>
+              </div>              
+            </div>
+            <% } %>
+            <form method="post">
+              <div id="progress" class="progress">
+                <div class="bar bar-success"></div>
+                <div class="bar bar-warning"></div>
+              </div>
+              <div class="actions">
+                <input type="submit" name="save" value="Save" class="button btn-large btn-success" />
+              </div>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>Key</th>
+                    <th>Root</th>
+                    <th>Translation</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var key in selectedLang.rootDb) { %>
+                  <% rv = selectedLang.rootDb[key]; %>
+                  <% if (selectedLang.db[key]) { tv = selectedLang.db[key]; } else { tv = rv; } %>
+                  <% if (tv == rv) {classes = "warning "} else {classes = "success";}%>
+                  <tr data-key="<%- key %>" class="tr <%- classes %>">
+                    <td>
+                      <input type="text" name="key[<%- key %>]" value="<%- key %>" disabled="disabled" />
+                    </td>
+                    <td>                      
+                      <textarea rows="3" name="root[<%- key %>]" disabled="disabled"><%- rv %></textarea>
+                    </td>
+                    <td>
+                      <textarea rows="3" name="trans[<%- key %>]"><%- tv %></textarea>
+                    </td>
+                    <td>
+                      <input type="button" name="removeKey" value="Remove" class="btn btn-mini btn-danger" />
+                    </td>
+                  </tr>
+                  <% } %>
+                  <tr class="adder-row info">
+                    <td colspan="4"><input type="button" name="addTr" value="Add new key" class="btn-mini btn-primary" /></td>
+                  </tr>
+                  <tr class="tr new_key_tpl">
+                    <td><input type="text" name="newKey[]" value="" /></td>
+                    <td><textarea rows="3" name="newRoot[]"></textarea></td>
+                    <td><textarea rows="3" name="newTrans[]"></textarea></td>
+                    <td>
+                      <input type="button" name="removeKey" value="Remove" class="btn btn-mini btn-danger" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="actions">
+                <input type="submit" name="save" value="Save" class="button btn-large btn-success" />
+              </div>              
+            </form>
+          </div>
+          <% } %>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>UI Translator &copy; Jerry Jalava, Music Kickup Ltd 2013</p>
+      </footer>
+
+    </div>
+    
+    <script src="/js/jquery-1.7.1.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/editor.js"></script>
+  </body>
+</html>

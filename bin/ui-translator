@@ -1,0 +1,4 @@
+#!/usr/bin/env coffee
+
+server = require '../server'
+server.run(process.argv)
