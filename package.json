@@ -9,6 +9,13 @@
   "bugs": {
     "url": "http://github.com/jerryjj/ui-translator/issues"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/jerryjj/ui-translator/raw/master/LICENSE"
+    }
+  ],
+  "readmeFilename": "README.md",
   "engines": {
     "node": "0.6.x",
     "npm": "1.x.x"
