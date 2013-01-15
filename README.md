@@ -3,6 +3,8 @@
 Translator server for RequireJS i18n files. See http://requirejs.org/docs/api.html#i18n for more details.
 Currently the server requires that you have defined your root bundle in the top level module.
 
+Server can handle both .js and .coffee files.
+
 ## Install
 
     npm install -g ui-translator
