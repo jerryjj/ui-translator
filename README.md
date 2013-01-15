@@ -41,3 +41,8 @@ You may also pass second argument which is list of ignored paths for the parser.
     ui-translator my/ my/other,my/third
 
 Then when the parser walks through the root folder and if there would be my/other/nls -folder it would get ignored
+
+# Screenshot
+
+![screenshot](http://github.com/jerryjj/ui-translator/raw/master/screenshot.png)
+
