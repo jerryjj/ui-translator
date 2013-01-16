@@ -15,9 +15,9 @@ exports.collect = collect = (root, cb) ->
   walker.on "file", (root, fileStats, next) ->
     if root.match /nls/
       if fileStats.name.match /\.js$/
-        nls_files.push "#{root}/#{fileStats.name}"
+        nls_files.push path.normalize "#{root}/#{fileStats.name}"
       if fileStats.name.match /\.coffee$/
-        nls_files.push "#{root}/#{fileStats.name}"
+        nls_files.push path.normalize "#{root}/#{fileStats.name}"
       
     next()
 
