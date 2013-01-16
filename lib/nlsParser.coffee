@@ -128,10 +128,10 @@ exports.parse = (root, ignore, cb) ->
 saveFile = (root, file_path, lang, nls, next) ->
   unless file_path
     #console.log 'generating new file_path for lang',lang
-    file_path = "#{root}/#{nls.rootPath}/#{lang}/#{nls.groupName}.#{nls.type}"    
+    file_path = "#{nls.rootPath}/#{lang}/#{nls.groupName}.#{nls.type}"    
   
   #console.log 'saveFile',file_path
-  
+  file_path = path.normalize file_path
   base_dir = path.dirname file_path  
   fs.mkdirSync base_dir unless fs.existsSync base_dir
   
