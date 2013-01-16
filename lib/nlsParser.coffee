@@ -82,12 +82,12 @@ exports.parse = (root, ignore, cb) ->
       parts = file_path.split '/'
       nlsIndex = parts.indexOf 'nls'
       if nlsIndex is parts.length-2
-        root_files.push file_path
+        root_files.push path.normalize file_path
     
     root_files = _.reject root_files, (file) ->
       status = false
       ignore.forEach (ignf) ->
-        status = true if path.dirname(file).match "#{ignf}/"
+        status = true if path.dirname(file).match "#{ignf}"
       return status
     
     console.log 'Found',root_files.length,'root localization files'

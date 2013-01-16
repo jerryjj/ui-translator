@@ -1,7 +1,7 @@
 {
   "name": "ui-translator",
   "description": "Translator server for RequireJS i18n files.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "repository": {
     "type": "git",
     "url": "http://github.com/jerryjj/ui-translator.git"
